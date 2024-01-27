@@ -3,18 +3,19 @@ from dotenv import load_dotenv
 import os
 from sys import argv
 
+
 # Load environment variables from .env file
 load_dotenv()
 
 # Retrieve the API key
 API_KEY = os.getenv("OPENAI_API_KEY")
 
-def readPrompt(filename):
+def readFromFile(filename):
     """Reads the prompt from a file and returns it as a string."""
     path = "prompt_source/" + filename
     
     try:
-        with open(path, "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             return f.read()
     except FileNotFoundError:
         print("File not found.")
@@ -40,13 +41,14 @@ def main():
     )
 
     # Get the prompt from a file
-    prompt = readPrompt(filename)
+    prompt = readFromFile(filename)
 
-    setupPrompt = """Analyze the sentiment of the following news article in a scale from 1-10 (1 = negative, 10 = positive). ONLY OUTPUT A SINGLE NUMBER AND AN EMOTION (e.g. 5, neutral). You are designed to output in json format."""
+    setupPrompt = readFromFile("_setup.prompt")
     
     if prompt:
         response = client.chat.completions.create(
             model="gpt-3.5-turbo-1106",
+            # model="gpt-4-0125-preview",
             response_format={
                 "type": "json_object"
             },
@@ -63,11 +65,16 @@ def main():
         print("No prompt available to process.")
     
     sentiment = response.choices[0].message.content
+    total_tokens = response.usage.total_tokens
     
-    print("Prompt:", prompt)
+    print(f"Prompt:\n{filename}\n")
     
-    print("Sentiment:", sentiment)
+    print(f"Total tokens: {total_tokens}\n")
     
+    print(f"Sentiment: {sentiment}\n")
+    
+    print()
+    print(response)
     
     outFile = filename.split(".")[0] + "_output.json"
     writeToFile(outFile, sentiment)

@@ -1,0 +1,3 @@
+Analyze the sentiment of the following news article in a scale from 1-10.
+With 1 being the least likely for investment and 10 being the most likely for investment. Be more critical as the score gets lower.
+Only output a single number and an associated reason in a short phrase in json format with fields (score, reason)
