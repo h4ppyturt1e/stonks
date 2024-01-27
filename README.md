@@ -17,6 +17,27 @@ Eventually, the project's goal is to include a simulated "portfolio" feature, al
 Future goals:
 - **Simulated Portfolio:** Users can manage a fake portfolio to test trading strategies based on the sentiment analysis.
 
+## Example
+After running `py main.py positive.txt`, with `positive.txt` containing the following text:
+
+```
+Booble Inc. Unveils Innovative Solar Technology
+January 26, 2024 - Booble Inc., a prominent tech firm, today announced a new solar panel technology with an
+industry-leading 40% efficiency rate. CEO Dr. Alex Hartman highlighted the potential of this technology to
+revolutionize renewable energy accessibility and reduce costs.
+
+Following the announcement, Booble's stock surged, signaling strong investor confidence. The company plans to
+collaborate with governments and NGOs to distribute this technology globally, particularly in energy-scarce regions.
+```
+
+The following output is generated:
+```
+Sentiment: {
+  "sentiment_score": 9,
+  "sentiment_emotion": "positive"
+}
+```
+
 <!-- ## Getting Started
 ### Prerequisites
 - Python 3.8 or higher

@@ -25,7 +25,7 @@ def writeToFile(filename, text):
     path = "prompt_outputs/" + filename
     
     try:
-        with open(path, "w") as f:
+        with open(path, "w", encoding="utf-8") as f:
             f.write(text)
     except FileNotFoundError:
         print("File not found.")
